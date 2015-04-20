@@ -1,3 +1,4 @@
+#ignore all .dot, .dot.png and ~ files
 *.dot
 *.dot.png
 *~
