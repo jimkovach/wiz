@@ -1,4 +1,6 @@
 #ignore all .dot, .dot.png and ~ files
+#.dot files are those used by the GRAPHIX to display model of WIZARD TOWN
+
 *.dot
 *.dot.png
 *~
