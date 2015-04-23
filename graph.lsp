@@ -1,7 +1,7 @@
 (defun dot-name (exp)
   (substitute-if #\_ (complement #'alphanumericp) (prin1-to-string exp)))
 
-(defParameter *max-label-length* 30)
+(defParameter *max-label-length* 10)
 (defun dot-label (exp)
   (if exp
       (let ((s (write-to-string exp :pretty nil)))
