@@ -182,12 +182,4 @@
 
 
 (draw-map  *dot-file* *nodes* *edges*)
-(draw-map *dot-file-known* *visited-nodes* *edges*)
-
-(defun new-game ()
-  (setf *location* 'living-room)
-  (setf *visited-nodes* *location*)
-  (setf *inventory* nil)
-  (setf *chain-welded* nil)
-  (setf *bucket-filled* nil)
-  )
+;(draw-map *dot-file-known* *visited-nodes* *edges*)
