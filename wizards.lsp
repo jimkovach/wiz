@@ -68,7 +68,9 @@
 	 (apply #'append(mapcar #'describe-obj(objects-at loc objs obj-loc)))))
 
 (defparameter *location* 'living-room)
-(defparameter *visited-nodes* (list 'living-room 'attic))
+(defparameter *visited-nodes* (list '((living-room (garden west door)
+						   (kitchen east door)
+						   (attic upstairs ladder)))))
 
 (defun look()
   (append (describe-location *location* *nodes*)
@@ -101,6 +103,7 @@
   (cons 'items- (objects-at 'body *objects* *object-locations*))))
 
 (defun game-repl()
+"GAME-REPL is the main loop for WIZARDS typing QUIT will exit the repl"
   (let ((cmd (game-read)))
     (unless (eq (car cmd) 'quit)
       (game-print (game-eval cmd))
@@ -182,4 +185,4 @@
 
 
 (draw-map  *dot-file* *nodes* *edges*)
-;(draw-map *dot-file-known* *visited-nodes* *edges*)
+(draw-map *dot-file-known* *visited-nodes* *edges*)
