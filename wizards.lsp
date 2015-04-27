@@ -6,6 +6,7 @@
 ;;LOAD GRAPH.LSP so we can use GRAFVIZ
 (load "/users/jimkovach/program/lisp/LoLisp/wizards/graph.lsp")
 
+;location 1880
 (defparameter *nodes* '((living-room (you are in the living-room.
 					  A wizard is snoring loudly on the couch.))
 			(kitchen (you are in a well appointed kitchen.
@@ -24,6 +25,7 @@
 
 
 (defun describe-location (location nodes)
+"location 1913"
   (cadr ( assoc location nodes)))
 
 ;;;*edges* = pathways between rooms (*nodes*
