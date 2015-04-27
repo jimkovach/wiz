@@ -28,8 +28,9 @@
 "location 1913"
   (cadr ( assoc location nodes)))
 
-;;;*edges* = pathways between rooms (*nodes*
-(defparameter *edges* '((living-room (garden west door)
+;*edges* = pathways between rooms (*nodes*)
+;location 1934
+(defparameter *edges*  '((living-room (garden west door)
 				     (kitchen east door)
 				     (attic upstairs ladder))
 			(entry (kitchen west door)
@@ -45,14 +46,17 @@
 			(attic (living-room downstairs ladder))))
 
 (defun describe-path (edge)
-"Description of the path that is being observed"
+"location 1934 -- Description of the path that is being observed"
   `(there is a ,(caddr edge) going ,(cadr edge) from here.))
 
 (defun describe-paths (location edges)
+"location 1962"
   (apply #'append (mapcar #'describe-path (cdr (assoc location edges)))))
 
 (defparameter *objects* '(whiskey bucket knife frog chain))
+;location 2082
 
+;loation 2090
 (defparameter *object-locations* '((whiskey living-room)
 				   (bucket living-room)
 				   (knife kitchen)
@@ -60,11 +64,13 @@
 				   (frog garden)))
 
 (defun objects-at (loc objs obj-locs)
+"location 2090"
   (labels ((at-loc-p (obj)
 		     (eq (cadr (assoc obj obj-locs)) loc)))
 	  (remove-if-not #'at-loc-p objs)))
 
 (defun describe-objects (loc objs obj-loc)
+"location 2124"
   (labels ((describe-obj (obj)
 			`(you see a ,obj on the floor.)))
 	 (apply #'append(mapcar #'describe-obj(objects-at loc objs obj-loc)))))
