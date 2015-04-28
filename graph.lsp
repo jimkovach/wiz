@@ -1,8 +1,10 @@
 (defun dot-name (exp)
+"location 3063"
   (substitute-if #\_ (complement #'alphanumericp) (prin1-to-string exp)))
 
-(defParameter *max-label-length* 10)
+(defParameter *max-label-length* 12)
 (defun dot-label (exp)
+"location 3115"
   (if exp
       (let ((s (write-to-string exp :pretty nil)))
 	(if (> (length s) *max-label-length*)
@@ -11,6 +13,7 @@
       ""))
 
 (defun nodes->dot (nodes)
+"location 3129"
   (mapc (lambda (node)
 	  (fresh-line)
 	  (princ (dot-name (car node)))
