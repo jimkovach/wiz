@@ -76,29 +76,27 @@
 	 (apply #'append(mapcar #'describe-obj(objects-at loc objs obj-loc)))))
 
 (defparameter *location* 'living-room)
-(defparameter *visited-nodes* (list '((living-room (garden west door)
-						   (kitchen east door)
-						   (attic upstairs ladder)))))
 
 (defun look()
+"location 2142"
   (append (describe-location *location* *nodes*)
 	  (describe-paths *location* *edges*)
 	  (describe-objects *location* *objects* *object-locations*)))
 
 (defun move (direction)
-"replaces original WALK"
+"location 2171 - replaces original WALK"
   (let ((next (find direction
 		    (cdr (assoc *location* *edges*))
 		    :key #'cadr)))
     (if next
 	(progn (setf *location* (car next))
-	       (pushnew *location* *visited-nodes*)
+;	       (pushnew *location* *visited-nodes*)
 	       (look))
 ;(draw-known-map)
       '(you cannot go that way.))))
 
 (defun take (object)
-"replaces original PICKUP"
+"location 224 - replaces original PICKUP"
   (cond ((member object
 		 (objects-at *location* *objects* *object-locations*))
 	 (push (list object 'body) *object-locations*)
@@ -106,32 +104,37 @@
 	(t '(you cannot get that.))))
 
 (defun inventory()
+"location 2266"
   (if (eq (objects-at 'body *objects* *object-locations*) nil)
       nil
   (cons 'items- (objects-at 'body *objects* *object-locations*))))
 
 (defun game-repl()
-"GAME-REPL is the main loop for WIZARDS typing QUIT will exit the repl"
+"location 2536 - GAME-REPL is the main loop for WIZARDS typing QUIT will exit the repl"
   (let ((cmd (game-read)))
     (unless (eq (car cmd) 'quit)
       (game-print (game-eval cmd))
       (game-repl))))
 
 (defun game-read()
+"location 2560"
   (let ((cmd (read-from-string
 	      (concatenate 'string "(" (read-line) ")" ))))
     (flet ((quote-it (x)
 		     (list 'quote x)))
 	  (cons (car cmd) (mapcar #'quote-it (cdr cmd))))))
 
+;location 2595
 (defparameter *allowed-commands* '(look move take inventory new-game))
 
 (defun game-eval (sexp)
+"location 2595"
   (if (member (car sexp) *allowed-commands*)
       (eval sexp)
     '(i do not know that command.)))
 
 (defun tweak-text (lst caps lit)
+"location 2647 - GAME-PRINT helper"
   (when lst
     (let ((item (car lst))
 	  (rest (cdr lst)))
@@ -143,7 +146,8 @@
 	    (t (cons (char-downcase item) (tweak-text rest nil nil)))))))
 
 (defun game-print (lst)
-  (princ (coerce (tweak-text (coerce (string-trim "() "
+"location 2647"
+  (princ (coerce (tweak-text (coerce (string-trim "()"
 						  (prin1-to-string lst))
 				     'list)
 			     t
