@@ -7,7 +7,7 @@
 (load "/users/jimkovach/program/lisp/LoLisp/wizards/graph.lsp")
 
 ;location 1880
-(defparameter *nodes* '((living-room (you are in the living-room.
+(defparameter *wizard-nodes* '((living-room (you are in the living-room.
 					  A wizard is snoring loudly on the couch.))
 			(kitchen (you are in a well appointed kitchen.
 				      A chopping block holds one chefs knife.))
@@ -28,9 +28,9 @@
 "location 1913"
   (cadr ( assoc location nodes)))
 
-;*edges* = pathways between rooms (*nodes*)
+;*wizard-edges* = pathways between rooms (*wizard-nodes*)
 ;location 1934
-(defparameter *edges*  '((living-room (garden west door)
+(defparameter *wizard-edges*  '((living-room (garden west door)
 				     (kitchen east door)
 				     (attic upstairs ladder))
 			(entry (kitchen west door)
@@ -79,14 +79,14 @@
 
 (defun look()
 "location 2142"
-  (append (describe-location *location* *nodes*)
-	  (describe-paths *location* *edges*)
+  (append (describe-location *location* *wizard-nodes*)
+	  (describe-paths *location* *wizard-edges*)
 	  (describe-objects *location* *objects* *object-locations*)))
 
 (defun move (direction)
 "location 2171 - replaces original WALK"
   (let ((next (find direction
-		    (cdr (assoc *location* *edges*))
+		    (cdr (assoc *location* *wizard-edges*))
 		    :key #'cadr)))
     (if next
 	(progn (setf *location* (car next))
@@ -156,9 +156,11 @@
   (fresh-line))
 
 (defun have (object)
+"location 9106"
   (member object (inventory)))
 
 (defmacro game-action (command subj obj place &body body)
+"location 9173"
   `(progn (defun ,command (subject object)
 	    (if (and (eq *location* ',place)
 		     (eq subject ',subj)
@@ -168,8 +170,8 @@
 	      '(i cant ,command like that.)))
 	  (pushnew ',command *allowed-commands*)))
 
+;location 9106
 (defparameter *chain-welded* nil)
-
 (game-action weld chain bucket attic
 	     (if (and (have 'bucket) (not *chain-welded*))
 		 (progn (setf *chain-welded* 't)
@@ -196,5 +198,5 @@
   (ugraph->png map node edge))
 
 
-(draw-map  *dot-file* *nodes* *edges*)
-;(draw-map *dot-file-known* *visited-nodes* *edges*)
+(draw-map  *dot-file* *wizard-nodes* *wizard-edges*)
+;(draw-map *dot-file-known* *visited-nodes* *wizard-edges*)
