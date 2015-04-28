@@ -53,11 +53,13 @@
   (ext:shell (concatenate 'string "dot -Tpng -O " fname)))
 
 (defun graph->png (fname nodes edges)
+"location 3337"
   (dot->png fname
 	    (lambda ()
 	      (graph->dot nodes edges))))
 
 (defun uedges->dot (edges)
+"location 3371"
   (maplist (lambda (lst)
 	     (mapc (lambda (edge)
 		     (unless (assoc (car edge) (cdr lst))
@@ -65,21 +67,23 @@
 		       (princ (dot-name (caar lst)))
 		       (princ "--")
 		       (princ (dot-name (car edge)))
-;		       (princ "[label=\"")
-;		       (princ (dot-label (cddr edge)))
-;		       (princ "\"];")
+;changed cdr to cddr for cleaner edge label
+		       (princ "[label=\"")
+		       (princ (dot-label (cddr edge)))
+		       (princ "\"];")
 		       ))
 		   (cdar lst)))
 	   edges))
 
 (defun ugraph->dot (nodes edges)
+"location 3371"
   (princ "graph{")
   (nodes->dot nodes)
   (uedges->dot edges)
   (princ "}"))
 
-
 (defun ugraph->png (fname nodes edges)
+"location 3371"
   (dot->png fname
 	    (lambda ()
 	      (ugraph->dot nodes edges))))
