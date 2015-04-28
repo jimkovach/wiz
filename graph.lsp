@@ -23,6 +23,7 @@
 	  nodes))
 
 (defun edges->dot (edges)
+"location 3166"
   (mapc (lambda (node)
 	  (mapc (lambda (edge)
 		  (fresh-line)
@@ -30,18 +31,21 @@
 		  (princ "->")
 		  (princ (dot-name (car edge)))
 		  (princ "[label=\"")
+;the next lines CDDR was originally CDR, making for glutinous edge label
 		  (princ (dot-label (cddr edge)))
 		  (princ "\"];"))
 		(cdr node)))
 	edges))
 
 (defun graph->dot (nodes edges)
+"location 3182"
   (princ "digraph{")
   (nodes->dot nodes)
   (edges->dot edges)
   (princ "}"))
 
 (defun dot->png (fname thunk)
+"location 3199:"
   (with-open-file (*standard-output* fname
 				     :direction :output
 				     :if-exists :supersede)
