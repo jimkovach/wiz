@@ -16,3 +16,13 @@
 				   (cdr (assoc node
 					       *wizard-edges*))))
 			 *visited-nodes*)))))
+
+(defun known-edges()
+"location 3868"
+  (mapcar (lambda (node)
+	    (cons node (mapcar (lambda (x)
+				 (if (member (car x) *visited-nodes*)
+				     x
+				   (list (car x))))
+			       (cdr (assoc node *wizard-edges*)))))
+	  *visited-nodes*))
