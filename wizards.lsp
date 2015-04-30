@@ -94,8 +94,9 @@
     (if next
 	(progn (setf *location* (car next))
 	       (pushnew *location* *visited-nodes*)
+	       (draw-known)
 	       (look))
-;(draw-known-map)
+
       '(you cannot go that way.))))
 
 (defun take (object)
@@ -203,3 +204,10 @@
 
 (draw-map  *dot-file* *wizard-nodes* *wizard-edges*)
 ;(draw-map *dot-file-known* *visited-nodes* *wizard-edges*)
+
+(defun new-game()
+  (setf *location* 'living-room)
+  (setf *visited-nodes* '(living-room))
+  (describe-location *location* *wizard-nodes*)
+  (draw-known)
+  )
