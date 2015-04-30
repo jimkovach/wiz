@@ -83,6 +83,9 @@
 	  (describe-paths *location* *wizard-edges*)
 	  (describe-objects *location* *objects* *object-locations*)))
 
+(setf *visited-nodes* '(living-room))
+;beginning to work on known-nodes
+
 (defun move (direction)
 "location 2171 - replaces original WALK"
   (let ((next (find direction
@@ -90,7 +93,7 @@
 		    :key #'cadr)))
     (if next
 	(progn (setf *location* (car next))
-;	       (pushnew *location* *visited-nodes*)
+	       (pushnew *location* *visited-nodes*)
 	       (look))
 ;(draw-known-map)
       '(you cannot go that way.))))

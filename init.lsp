@@ -17,6 +17,9 @@
 (defun ld-init()
   (load "/users/jimkovach/program/lisp/LoLisp/wizards/init.lsp"))
 
+(defun ld-known()
+  (load "/users/jimkovach/program/lisp/LoLisp/wizards/wizards-known.lsp"))
+
 (defun wizards()
   (load "/users/jimkovach/program/lisp/LoLisp/wizards/wizards.lsp")
   (cls)
